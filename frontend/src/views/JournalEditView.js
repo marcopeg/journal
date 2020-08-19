@@ -1,0 +1,60 @@
+/* eslint-disable */
+
+import React from "react";
+import {
+  IonPage,
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonContent,
+  IonButtons,
+  IonMenuButton,
+  IonButton,
+  IonIcon,
+  IonItem,
+  IonLabel,
+  IonTextarea
+} from "@ionic/react";
+
+import { closeOutline } from "ionicons/icons";
+
+import useJournalNotesUpsert, {
+  NEW_ITEM_ID
+} from "../state/use-journal-notes/upsert";
+
+const JournalEditView = ({ match }) => {
+  const { values, hasChanges } = useJournalNotesUpsert(match.params.noteId);
+
+  return (
+    <>
+      <IonPage>
+        <IonHeader>
+          <IonToolbar>
+            <IonButtons slot="start">
+              <IonMenuButton />
+            </IonButtons>
+            <IonTitle>{"Journal"}</IonTitle>
+            <IonButtons slot="primary">
+              <IonButton routerLink="/journal" routerDirection="back">
+                {hasChanges ? <small>Saving...</small> : "Done"}
+              </IonButton>
+            </IonButtons>
+          </IonToolbar>
+        </IonHeader>
+        <IonContent>
+          <IonItem lines="none">
+            <IonLabel position="floating">What's up?</IonLabel>
+            <IonTextarea
+              {...(values.text.options || {})}
+              rows={25}
+              value={values.text.value}
+              onIonChange={(e) => values.text.update(e.target.value)}
+            />
+          </IonItem>
+        </IonContent>
+      </IonPage>
+    </>
+  );
+};
+
+export default JournalEditView;

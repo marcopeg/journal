@@ -1,0 +1,437 @@
+- table:
+    schema: public
+    name: app_settings
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - key
+      - value
+      filter: {}
+- table:
+    schema: public
+    name: expense_categories
+  insert_permissions:
+  - role: user
+    permission:
+      check: {}
+      set:
+        created_by: x-hasura-user-id
+        updated_by: x-hasura-user-id
+      columns:
+      - data
+      - is_active
+      - name
+      - notes
+      - order
+      - project_id
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - is_active
+      - order
+      - created_by
+      - id
+      - project_id
+      - updated_by
+      - data
+      - name
+      - notes
+      - created_at
+      - updated_at
+      filter:
+        created_by:
+          _eq: X-Hasura-User-Id
+  update_permissions:
+  - role: user
+    permission:
+      columns:
+      - data
+      - is_active
+      - name
+      - notes
+      - order
+      filter:
+        created_by:
+          _eq: X-Hasura-User-Id
+      check: null
+      set:
+        updated_by: x-hasura-user-id
+- table:
+    schema: public
+    name: expense_projects
+  insert_permissions:
+  - role: user
+    permission:
+      check: {}
+      set:
+        created_by: x-hasura-user-id
+        updated_by: x-hasura-user-id
+      columns:
+      - data
+      - is_active
+      - name
+      - notes
+      - order
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - created_at
+      - created_by
+      - data
+      - id
+      - is_active
+      - name
+      - notes
+      - order
+      - updated_at
+      - updated_by
+      filter:
+        created_by:
+          _eq: X-Hasura-User-Id
+  update_permissions:
+  - role: user
+    permission:
+      columns:
+      - data
+      - is_active
+      - name
+      - notes
+      - order
+      filter:
+        created_by:
+          _eq: X-Hasura-User-Id
+      check: null
+      set:
+        updated_at: now()
+        updated_by: x-hasura-user-id
+  delete_permissions:
+  - role: user
+    permission:
+      filter:
+        created_by:
+          _eq: X-Hasura-User-Id
+- table:
+    schema: public
+    name: expense_projects_by_user
+  select_permissions:
+  - role: user
+    permission:
+      columns: '*'
+      filter: {}
+- table:
+    schema: public
+    name: expense_projects_users
+  insert_permissions:
+  - role: user
+    permission:
+      check: {}
+      set:
+        created_by: x-hasura-user-id
+      columns:
+      - member_id
+      - project_id
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - created_by
+      - member_id
+      - project_id
+      - created_at
+      filter:
+        created_by:
+          _eq: X-Hasura-User-Id
+  delete_permissions:
+  - role: user
+    permission:
+      filter:
+        created_by:
+          _eq: X-Hasura-User-Id
+- table:
+    schema: public
+    name: expense_transactions
+  object_relationships:
+  - name: category
+    using:
+      foreign_key_constraint_on: category_id
+  - name: project
+    using:
+      foreign_key_constraint_on: project_id
+  - name: reporter
+    using:
+      foreign_key_constraint_on: member_id
+  insert_permissions:
+  - role: user
+    permission:
+      check: {}
+      set:
+        created_by: x-hasura-user-id
+        updated_by: x-hasura-user-id
+      columns:
+      - amount
+      - category_id
+      - created_at
+      - data
+      - is_confirmed
+      - member_id
+      - notes
+      - project_id
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - amount
+      - category_id
+      - created_at
+      - created_by
+      - data
+      - id
+      - is_confirmed
+      - member_id
+      - notes
+      - project_id
+      - updated_at
+      - updated_by
+      filter:
+        created_by:
+          _eq: X-Hasura-User-Id
+  update_permissions:
+  - role: user
+    permission:
+      columns:
+      - amount
+      - category_id
+      - data
+      - is_confirmed
+      - member_id
+      - notes
+      - project_id
+      filter: {}
+      check: null
+      set:
+        updated_at: now()
+        updated_by: x-hasura-user-id
+  delete_permissions:
+  - role: user
+    permission:
+      filter: {}
+- table:
+    schema: public
+    name: expense_transactions_by_user
+  select_permissions:
+  - role: user
+    permission:
+      columns: '*'
+      filter: {}
+- table:
+    schema: public
+    name: journal_logs
+  object_relationships:
+  - name: journal_question
+    using:
+      foreign_key_constraint_on: question_id
+  - name: user
+    using:
+      foreign_key_constraint_on: user_id
+  insert_permissions:
+  - role: user
+    permission:
+      check:
+        user_id:
+          _eq: X-Hasura-User-Id
+      set:
+        user_id: x-hasura-User-Id
+      columns:
+      - created_at_day
+      - data
+      - question_id
+      - text
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - created_at
+      - created_at_day
+      - data
+      - question_id
+      - text
+      - updated_at
+      - user_id
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+  update_permissions:
+  - role: user
+    permission:
+      columns:
+      - data
+      - text
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+      check: null
+      set:
+        updated_at: now()
+        user_id: x-hasura-User-Id
+  delete_permissions:
+  - role: user
+    permission:
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+- table:
+    schema: public
+    name: journal_notes
+  insert_permissions:
+  - role: user
+    permission:
+      check: {}
+      set:
+        created_by: x-hasura-user-id
+        updated_by: x-hasura-user-id
+      columns:
+      - data
+      - text
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - created_by
+      - id
+      - updated_by
+      - data
+      - text
+      - created_at
+      - updated_at
+      filter:
+        created_by:
+          _eq: X-Hasura-User-Id
+  update_permissions:
+  - role: user
+    permission:
+      columns:
+      - data
+      - text
+      filter:
+        created_by:
+          _eq: X-Hasura-User-Id
+      check: null
+  delete_permissions:
+  - role: user
+    permission:
+      filter:
+        created_by:
+          _eq: X-Hasura-User-Id
+- table:
+    schema: public
+    name: journal_questions
+  object_relationships:
+  - name: user
+    using:
+      foreign_key_constraint_on: user_id
+  array_relationships:
+  - name: journal_logs
+    using:
+      foreign_key_constraint_on:
+        column: question_id
+        table:
+          schema: public
+          name: journal_logs
+  insert_permissions:
+  - role: user
+    permission:
+      check:
+        user_id:
+          _eq: X-Hasura-User-Id
+      set:
+        updated_at: now()
+        created_at: now()
+        user_id: x-hasura-User-Id
+      columns:
+      - data
+      - order
+      - show_in_journal
+      - text
+      - type
+      - user_id
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - created_at
+      - data
+      - id
+      - order
+      - show_in_journal
+      - text
+      - type
+      - updated_at
+      - user_id
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+  update_permissions:
+  - role: user
+    permission:
+      columns:
+      - data
+      - order
+      - show_in_journal
+      - text
+      - type
+      - user_id
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+      check: null
+      set:
+        updated_at: now()
+        user_id: x-hasura-User-Id
+  delete_permissions:
+  - role: user
+    permission:
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+- table:
+    schema: public
+    name: users
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - created_at
+      - email
+      - id
+      - updated_at
+      filter:
+        id:
+          _eq: X-Hasura-User-Id
+- table:
+    schema: public
+    name: users_settings
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - user_id
+      - data
+      - created_at
+      - updated_at
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+  update_permissions:
+  - role: user
+    permission:
+      columns:
+      - data
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+      check: null
+      set:
+        updated_at: now()
