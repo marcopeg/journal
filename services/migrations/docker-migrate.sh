@@ -3,16 +3,22 @@
 if [ -z "${HASURA_SKIP_MIGRATIONS}" ]
 then
     hasura migrate apply --endpoint ${HASURA_ENDPOINT} --admin-secret ${HASURA_ADMIN_SECRET} --skip-update-check
+else
+    echo "Skipping migrations"
 fi
 
 if [ -z "${HASURA_SKIP_METADATA}" ]
 then
     hasura metadata apply --endpoint ${HASURA_ENDPOINT} --admin-secret ${HASURA_ADMIN_SECRET} --skip-update-check
+else
+    echo "Skipping metadata"
 fi
 
 if [ -z "${HASURA_SKIP_SEEDS}" ]
 then
     hasura seeds apply --endpoint ${HASURA_ENDPOINT} --admin-secret ${HASURA_ADMIN_SECRET} --skip-update-check
+else
+    echo "Skipping seeds"
 fi
 
 
