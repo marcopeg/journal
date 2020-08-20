@@ -85,7 +85,8 @@ services:
 
   postgres:
     container_name: postgres
-    image: postgres:12
+    build:
+      context: ./postgres
     restart: always
     ports:
       - "${PG_PORT:-5432}:5432"
