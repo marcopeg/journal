@@ -10,5 +10,5 @@ then
     echo "Migrations completed, exiting the process."
 else
     echo "Migrations completed, keeping the process alive forever."
-    while true; do foo; sleep 20; done
+    while true; do sleep 20; done
 fi
