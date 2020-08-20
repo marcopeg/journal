@@ -40,3 +40,8 @@ ReactDOM.render(
   </IonApp>,
   rootElement
 );
+
+console.log(
+  REACT_APP_HASURA_URL,
+  process.env.REACT_APP_HASURA_URL || "not-set"
+);
