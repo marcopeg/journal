@@ -40,3 +40,5 @@ ReactDOM.render(
   </IonApp>,
   rootElement
 );
+
+console.log("REACT_APP_FOO", process.env.REACT_APP_FOO || "not set");

@@ -12,6 +12,7 @@ ADD src /usr/src/app/src
 ADD public /usr/src/app/public
 
 # Build:
+ARG REACT_APP_FOO=${REACT_APP_FOO}
 WORKDIR /usr/src/app
 RUN npm run build
 
