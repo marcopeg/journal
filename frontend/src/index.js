@@ -41,7 +41,7 @@
 //   rootElement
 // );
 
-console.log("REACT_APP_FOO", process.env.REACT_APP_FOO || "not set");
+console.log("REACT_APP_AUTH0_DOMAIN", process.env.REACT_APP_FOO || "not set");
 console.log(
   "REACT_APP_HASURA_URL",
   process.env.REACT_APP_HASURA_URL || "not set"
