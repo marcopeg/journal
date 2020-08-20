@@ -13,6 +13,7 @@ ADD public /usr/src/app/public
 
 # Define build arguments
 ARG REACT_APP_FOO=${REACT_APP_FOO}
+ARG REACT_APP_HASURA_URL=${REACT_APP_HASURA_URL}
 
 # Build:
 WORKDIR /usr/src/app
