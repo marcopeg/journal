@@ -51,6 +51,8 @@ services:
   hasura:
     container_name: hasura
     image: hasura/graphql-engine:v1.3.0
+    build:
+      context: ./services/hasura
     restart: always
     depends_on:
       postgres:
@@ -86,7 +88,7 @@ services:
   postgres:
     container_name: postgres
     build:
-      context: ./postgres
+      context: ./services/postgres
     restart: always
     ports:
       - "${PG_PORT:-5432}:5432"
