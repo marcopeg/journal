@@ -30,7 +30,8 @@ services:
 
   migrations:
     container_name: migrations
-    build: ./migrations
+    build:
+      context: ./services/migrations
     depends_on:
       hasura:
         condition: service_healthy
@@ -40,6 +41,7 @@ services:
       - ./migrations/seeds:/seeds:cached
     environment:
       HASURA_ENDPOINT: http://hasura:8080
+      HASURA_ADMIN_SECRET: gitpod-hasura-demo
       HASURA_GRAPHQL_ENABLE_TELEMETRY: "false"
     stdin_open: true
     tty: true
