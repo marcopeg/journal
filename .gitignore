@@ -1,3 +1,5 @@
 node_modules
 frontent/build
 docker-data
+.env
+.env.local

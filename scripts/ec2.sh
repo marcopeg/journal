@@ -1,0 +1,1 @@
+ssh -i ${EC2_PEM} ubuntu@${EC2_IP}
