@@ -18,5 +18,8 @@ RUN chmod +x docker-migrate.sh
 
 # Add a basic yaml config file that let the migration target the local hasura container
 ADD ./config.yaml /config.yaml
+ADD ./metadata /metadata
+ADD ./migrations /migrations
+ADD ./seeds /seeds
 
 ENTRYPOINT ["/docker-migrate.sh"]
