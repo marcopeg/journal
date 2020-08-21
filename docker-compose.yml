@@ -36,9 +36,9 @@ services:
       hasura:
         condition: service_healthy
     volumes:
-      - ./migrations/metadata:/metadata:cached
-      - ./migrations/migrations:/migrations:cached
-      - ./migrations/seeds:/seeds:cached
+      - ./services/migrations/metadata:/metadata:cached
+      - ./services/migrations/migrations:/migrations:cached
+      - ./services/migrations/seeds:/seeds:cached
     environment:
       HASURA_ENDPOINT: http://hasura:8080
       HASURA_ADMIN_SECRET: gitpod-hasura-demo
