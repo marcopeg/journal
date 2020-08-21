@@ -14,6 +14,9 @@ const AuthContext = createContext();
 const LOCAL_STORAGE_KEY = "auth.user";
 
 const AuthProviderDev = ({ children }) => {
+  const DEV_DATA = JSON.parse(
+    process.env.REACT_APP_HASURA_DEV_TOKEN.replace(/\\"/g, '"')
+  );
   const history = useHistory();
   const [hasChecked, setHasChecked] = useState(null);
   const [data, setData] = useState(null);
@@ -21,7 +24,7 @@ const AuthProviderDev = ({ children }) => {
   // Check user's login at boot time
   useEffect(() => {
     try {
-      const data = JSON.parse(localStorage.getItem("login"));
+      const data = JSON.parse(localStorage.getItem(`dev.${LOCAL_STORAGE_KEY}`));
       setData(data);
     } catch (err) {
       setData(null);
@@ -32,19 +35,8 @@ const AuthProviderDev = ({ children }) => {
 
   // Fake method to attempt to log the user in
   const login = () => {
-    const data = {
-      user: {
-        id: 1,
-        name: "Marco"
-      },
-      token: {
-        "x-hasura-admin-secret": "gitpod-hasura-demo",
-        "x-hasura-role": "user",
-        "x-hasura-user-id": 1
-      }
-    };
-    localStorage.setItem("login", JSON.stringify(data));
-    setData(data);
+    localStorage.setItem(`dev.${LOCAL_STORAGE_KEY}`, JSON.stringify(DEV_DATA));
+    setData(DEV_DATA);
     history.push("/");
   };
 
