@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React from "react";
 import {
   IonPage,
@@ -14,11 +16,12 @@ import {
 } from "@ionic/react";
 
 import useI18N from "../hooks/use-i18n";
+import useAuth from "../hooks/use-auth";
 
-import { useSubscription, gql } from "../hooks/use-apollo";
+import { useQuery, gql } from "../hooks/use-apollo";
 
 const APP_SETTINGS = gql`
-  subscription GetAppSettings {
+  query GetAppSettings {
     app_settings {
       key
       value
@@ -28,8 +31,11 @@ const APP_SETTINGS = gql`
 
 const HomeView = () => {
   const i18n = useI18N();
-  const { data, error } = useSubscription(APP_SETTINGS);
-  console.log(error);
+  const { data, error } = useQuery(APP_SETTINGS);
+  // console.log(error, data);
+
+  const auth = useAuth();
+  console.log(auth.user);
 
   return (
     <IonPage>
@@ -68,6 +74,8 @@ const HomeView = () => {
               {$.key}::{$.value}
             </div>
           ))}
+        <hr />
+        {JSON.stringify(auth.user)}
       </IonContent>
     </IonPage>
   );

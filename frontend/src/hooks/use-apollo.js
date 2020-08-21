@@ -30,9 +30,11 @@ export const ApolloProvider = ({ children }) => {
   // !!! headers don't work with WebSocket !!!
   const { token } = useAuth();
   const headers =
-    typeof token === "object"
+    typeof token && token === "object"
       ? token
-      : { authorization: token ? `Bearer ${token}` : "" };
+      : token
+      ? { authorization: `Bearer ${token}` }
+      : {};
 
   // const httpLink = new HttpLink({
   //   uri: httpBaseUrl,
