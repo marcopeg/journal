@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-echo "Checking on Hasura's healthcheck:"
+echo "Checking on Hasura's healthcheck..."
 while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' ${HASURA_ENDPOINT}/healthz)" != "200" ]]; 
 do
     echo "Hasura not yet available, try again in 5..."
