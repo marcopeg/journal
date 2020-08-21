@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { useState, useRef, useMemo, useEffect } from "react";
 import { gql } from "@apollo/client";
 import { useLazyQuery } from "../../hooks/use-lazy-query";

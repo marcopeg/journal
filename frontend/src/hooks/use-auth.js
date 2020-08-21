@@ -83,7 +83,8 @@ const AuthProviderProd = ({
   }, []);
 
   // the initial state depends on the user that's been cached in localStorage
-  const [isReady, setIsReady] = useState(cachedUser !== null);
+  // const [isReady, setIsReady] = useState(cachedUser !== null);
+  const [isReady, setIsReady] = useState(null);
   const [isLoading, setIsLoading] = useState(cachedUser === null);
   const [isAuthenticated, setIsAuthenticated] = useState(cachedUser !== null);
   const [client, setClient] = useState(null);
@@ -111,7 +112,7 @@ const AuthProviderProd = ({
           }
 
           // not sure why, but this won't work without a delay here
-          await setTimeout((r) => r, 100);
+          // await new Promise((r) => setTimeout(r, 500));
         }
 
         // Figure out login state
