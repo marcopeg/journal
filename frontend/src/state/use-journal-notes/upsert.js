@@ -41,8 +41,13 @@ const useJournalNotesUpsert = (noteId, options = DEFAULT_OPTIONS) => {
       const { id } = initialValues;
       if (id === NEW_ITEM_ID) {
         const { text } = values;
+        // skip an empty value
+        if (!text.length) {
+          // console.log("Empty text on a new note, skipping...");
+          return;
+        }
         const variables = { text };
-        // console.log('@create', variables);
+        // console.log("@create", variables);
         const res = await createNote({ variables });
         setInitialValues(res.data.insert_journal_notes.returning[0]);
       } else {
