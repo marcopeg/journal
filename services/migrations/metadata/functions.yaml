@@ -1,10 +1,1 @@
-- function:
-    schema: public
-    name: expense_projects_list_by_user
-  configuration:
-    session_argument: hasura_session
-- function:
-    schema: public
-    name: expense_transactions_list_by_user
-  configuration:
-    session_argument: hasura_session
+[]
