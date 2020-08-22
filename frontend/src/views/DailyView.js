@@ -19,18 +19,6 @@ import { add } from "ionicons/icons";
 import useJournalHistory from "../state/use-daily-log/use-journal-history";
 import JournalEntry from "../components/JournalEntry";
 
-// const formatDate = (date) => {
-//   var d = new Date(date),
-//     month = "" + (d.getMonth() + 1),
-//     day = "" + d.getDate(),
-//     year = d.getFullYear();
-
-//   if (month.length < 2) month = "0" + month;
-//   if (day.length < 2) day = "0" + day;
-
-//   return [year, month, day].join("-");
-// };
-
 // TODO: we can use the variable "today" in order to highlight the current log
 const DailyView = () => {
   const history = useHistory();

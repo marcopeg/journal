@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 import React from "react";
 import {
   IonPage,
@@ -18,11 +16,7 @@ import {
   IonCol
 } from "@ionic/react";
 
-import { closeOutline } from "ionicons/icons";
-
-import useJournalNotesUpsert, {
-  NEW_ITEM_ID
-} from "../state/use-journal-notes/upsert";
+import useJournalNotesUpsert from "../state/use-journal-notes/upsert";
 
 const JournalEditView = ({ match }) => {
   const { values, hasChanges } = useJournalNotesUpsert(match.params.noteId);
