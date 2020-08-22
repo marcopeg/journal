@@ -1,10 +1,13 @@
 import React, { useContext, createContext, useState } from "react";
 import PrivacyContent from "../contents/en/privacy-content.md";
+import HomeContent from "../contents/en/home-content.md";
 
 const defaults = {
   title: "IonicAPP",
   menu: "Menu",
   login: "Login",
+  HomeTitle: "JournalApp",
+  HomeContent,
   PrivacyTitle: "Privacy Policy",
   PrivacyContent
 };

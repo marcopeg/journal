@@ -2,7 +2,9 @@
 -- (settings is created via trigger, in case you need to alter the table to apply custom settings)
 TRUNCATE public.users RESTART IDENTITY CASCADE;
 INSERT INTO public.users VALUES 
-(1, 'auth0|0123456789', 'jdoe@foobar.com', '2020-01-01 08:54:49.275948+00', '2020-01-03 09:52:30.695674+00'),
+-- Marcopeg's GitHub ID
+(1, 'github|427569', 'jdoe@foobar.com', '2020-01-01 08:54:49.275948+00', '2020-01-03 09:52:30.695674+00'),
+-- Marcopeg's Facebook ID
 (3, 'facebook|10221765877087248', 'marco.pegoraro@gmail.com', '2019-12-27 13:49:08.694295+00', '2020-08-18 05:31:27.229456+00');
 ALTER SEQUENCE public.users_id_seq RESTART WITH 4;
 
