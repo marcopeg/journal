@@ -10,10 +10,12 @@ import {
   IonButtons,
   IonMenuButton,
   IonButton,
-  IonIcon,
   IonItem,
   IonLabel,
-  IonTextarea
+  IonTextarea,
+  IonGrid,
+  IonRow,
+  IonCol
 } from "@ionic/react";
 
 import { closeOutline } from "ionicons/icons";
@@ -42,15 +44,21 @@ const JournalEditView = ({ match }) => {
           </IonToolbar>
         </IonHeader>
         <IonContent>
-          <IonItem lines="none">
-            <IonLabel position="floating">What's up?</IonLabel>
-            <IonTextarea
-              {...(values.text.options || {})}
-              rows={25}
-              value={values.text.value}
-              onIonChange={(e) => values.text.update(e.target.value)}
-            />
-          </IonItem>
+          <IonGrid>
+            <IonRow>
+              <IonCol sizeLg={8}>
+                <IonItem lines="none">
+                  <IonLabel position="floating">What's up?</IonLabel>
+                  <IonTextarea
+                    {...(values.text.options || {})}
+                    rows={25}
+                    value={values.text.value}
+                    onIonChange={(e) => values.text.update(e.target.value)}
+                  />
+                </IonItem>
+              </IonCol>
+            </IonRow>
+          </IonGrid>
         </IonContent>
       </IonPage>
     </>

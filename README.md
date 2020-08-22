@@ -62,9 +62,8 @@ If you prefer to run the application locally, you should clone the repo and then
 run `docker-compose up` in order to gain:
 
 - Postgres > `postgres://postgres:postgres@localhost:5432/postgres`
-- Hasura console > http://localhost:8080
 - Postgres admin tool > http://localhost8081
-- NodeJS Backend > http://localhost:4000
+- Hasura console > http://localhost:8080
 - CRA Frontend > http://localhost:3000
 
 > Running Webpack in Docker is quite a hassle, I strongly suggest to run `make start` in order to run the entire backend in Docker, but let the host's NodeJS run Webpack and the client app

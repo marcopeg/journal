@@ -17,7 +17,10 @@ import {
   IonItem,
   IonLabel,
   IonItemOptions,
-  IonItemOption
+  IonItemOption,
+  IonGrid,
+  IonRow,
+  IonCol
 } from "@ionic/react";
 
 import { createOutline, add, trash } from "ionicons/icons";
@@ -48,6 +51,7 @@ const JournalView = () => {
           <IonRefresher slot="fixed" onIonRefresh={reload}>
             <IonRefresherContent />
           </IonRefresher>
+
           <IonList lines="full">
             {entries.map((note) => (
               <IonItemSliding key={note.id}>
@@ -55,15 +59,22 @@ const JournalView = () => {
                   routerLink={`/journal/${note.id}/edit`}
                   routerDirection="forward"
                 >
-                  <IonLabel class="ion-text-wrap">
-                    <p>
-                      {showDate(note.created_at)} - {showTime(note.created_at)}
-                    </p>
-                    <ReactMarkdown
-                      className="markdown-text1"
-                      source={note.text}
-                    />
-                  </IonLabel>
+                  <IonGrid>
+                    <IonRow>
+                      <IonCol sizeLg={8}>
+                        <IonLabel class="ion-text-wrap">
+                          <p>
+                            {showDate(note.created_at)} -{" "}
+                            {showTime(note.created_at)}
+                          </p>
+                          <ReactMarkdown
+                            className="markdown-text1"
+                            source={note.text}
+                          />
+                        </IonLabel>
+                      </IonCol>
+                    </IonRow>
+                  </IonGrid>
                 </IonItem>
                 <IonItemOptions side="end">
                   <IonItemOption color="danger" onClick={() => remove(note.id)}>
