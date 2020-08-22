@@ -13,6 +13,7 @@ import {
   IonIcon,
   IonLabel,
   IonHeader,
+  IonFooter,
   IonToolbar,
   IonTitle
 } from "@ionic/react";
@@ -32,6 +33,9 @@ import PageNotFoundView from "../views/PageNotFoundView";
 // Modals
 import CreateDailyModal from "../modals/CreateDailyModal";
 import CreateJournalModal from "../modals/CreateJournalModal";
+
+// Components
+import GithubIssue from "../components/GithubIssue";
 
 const DesktopLayout = () => {
   const location = useLocation();
@@ -68,6 +72,9 @@ const DesktopLayout = () => {
                 ))}
             </IonList>
           </IonContent>
+          <IonFooter>
+            <GithubIssue />
+          </IonFooter>
         </IonMenu>
         <IonRouterOutlet id="main">
           <Route exact path="/dashboard" component={DashboardView} />
