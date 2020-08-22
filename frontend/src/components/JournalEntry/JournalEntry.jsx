@@ -26,11 +26,15 @@ const JournalEntry = ({ logDate, onDisclose, entries }) => (
         const el = React.createElement(types[entry.type], {
           ...entry,
           entries,
-          entryIndex: index,
-          key: `${logDate}--${entry.questionId}`
+          entryIndex: index
         });
 
-        return <JournalEntryItem children={el} />;
+        return (
+          <JournalEntryItem
+            key={`${logDate}--${entry.questionId}`}
+            children={el}
+          />
+        );
       })}
     </IonLabel>
   </IonItem>
