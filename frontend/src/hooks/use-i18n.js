@@ -1,9 +1,12 @@
 import React, { useContext, createContext, useState } from "react";
+import PrivacyContent from "../contents/en/privacy-content.md";
 
 const defaults = {
   title: "IonicAPP",
   menu: "Menu",
-  login: "Login"
+  login: "Login",
+  PrivacyTitle: "Privacy Policy",
+  PrivacyContent
 };
 
 const I18NContext = createContext();
@@ -26,7 +29,8 @@ const useI18NProvider = () => {
   };
 
   return {
-    get
+    get,
+    fetch
   };
 };
 

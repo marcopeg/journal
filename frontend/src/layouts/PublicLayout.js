@@ -22,6 +22,7 @@ import useI18N from "../hooks/use-i18n";
 
 // Views
 import HomeView from "../views/HomeView";
+import PrivacyView from "../views/PrivacyView";
 import LoginView from "../views/LoginView";
 import PageNotFoundView from "../views/PageNotFoundView";
 
@@ -62,6 +63,7 @@ const DesktopLayout = () => {
         <IonRouterOutlet id="main">
           <Switch>
             <Route exact path="/" component={HomeView} />
+            <Route exact path="/privacy" component={PrivacyView} />
             <Route exact path="/login" component={LoginView} />
             <Route path="" component={PageNotFoundView} />
           </Switch>

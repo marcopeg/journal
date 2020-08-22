@@ -3,7 +3,8 @@ import {
   bookOutline,
   fileTrayFullOutline,
   personCircleOutline,
-  logInOutline
+  logInOutline,
+  fingerPrintOutline
 } from "ionicons/icons";
 
 const useMenu = () => [
@@ -12,6 +13,15 @@ const useMenu = () => [
     label: "Home",
     path: "/",
     icon: homeOutline,
+    isPublic: true,
+    isTab: false,
+    isSidebar: false,
+    isDashboard: false
+  },
+  {
+    label: "Privacy Policy",
+    path: "/privacy",
+    icon: fingerPrintOutline,
     isPublic: true,
     isTab: false,
     isSidebar: false,

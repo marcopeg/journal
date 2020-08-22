@@ -11,7 +11,7 @@ import { useHistory } from "react-router-dom";
 import createAuth0Client from "@auth0/auth0-spa-js";
 
 const AuthContext = createContext();
-const LOCAL_STORAGE_KEY = "auth.user";
+const LOCAL_STORAGE_KEY = "user.auth";
 
 const AuthProviderDev = ({ children }) => {
   const DEV_DATA = JSON.parse(
@@ -41,7 +41,7 @@ const AuthProviderDev = ({ children }) => {
   };
 
   const logout = () => {
-    localStorage.removeItem("login");
+    localStorage.removeItem(`dev.${LOCAL_STORAGE_KEY}`);
     setData(null);
     history.push("/");
   };
