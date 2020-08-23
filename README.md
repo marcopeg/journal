@@ -81,3 +81,28 @@ a few hundreds years) to perform the data transformation activities.
 
 Enjoy,
 Marco
+
+## Notes
+
+-- before "humble up migrations"
+drop schema public cascade;
+create schema public;
+truncate hdb_catalog.schema_migrations;
+
+-- before restore from production db
+TRUNCATE public.app_settings RESTART IDENTITY CASCADE;
+TRUNCATE public.journal_logs RESTART IDENTITY CASCADE;
+TRUNCATE public.journal_notes RESTART IDENTITY CASCADE;
+TRUNCATE public.journal_questions RESTART IDENTITY CASCADE;
+TRUNCATE public.users RESTART IDENTITY CASCADE;
+TRUNCATE public.users_settings RESTART IDENTITY CASCADE;
+
+-- after restore from production db
+BEGIN;
+LOCK TABLE public.journal_notes IN EXCLUSIVE MODE;
+LOCK TABLE public.journal_questions IN EXCLUSIVE MODE;
+LOCK TABLE public.users IN EXCLUSIVE MODE;
+SELECT setval('public.journal_notes_id_seq', COALESCE((SELECT MAX(id)+1 FROM public.journal_notes), 1), false);
+SELECT setval('public.journal_questions_id_seq', COALESCE((SELECT MAX(id)+1 FROM public.journal_questions), 1), false);
+SELECT setval('public.users_id_seq', COALESCE((SELECT MAX(id)+1 FROM public.users), 1), false);
+COMMIT;

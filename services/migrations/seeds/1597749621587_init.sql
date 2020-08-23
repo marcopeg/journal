@@ -32,11 +32,11 @@ INSERT INTO public.journal_logs VALUES
 TRUNCATE public.journal_notes RESTART IDENTITY CASCADE;
 INSERT INTO public.journal_notes VALUES
     -- JDoe Data 
-    (1, 1, '\[jdoe\] First log', null, 1, NOW() - INTERVAL '1d', 1, NOW() - INTERVAL '1d'),
-    (2, 1, '\[jdoe\] Second log', null, 1, NOW(), 1, NOW()),
+    (1, null, '\[jdoe\] First log', null, 1, NOW() - INTERVAL '1d', 1, NOW() - INTERVAL '1d'),
+    (2, null, '\[jdoe\] Second log', null, 1, NOW(), 1, NOW()),
     -- Marcopeg Data
-    (3, 3, '\[mpeg\] First log', null, 3, NOW() - INTERVAL '1d', 3, NOW() - INTERVAL '1d'),
-    (4, 3, '\[mpeg\] Second log', null, 3, NOW(), 3, NOW());
+    (3, null, '\[mpeg\] First log', null, 3, NOW() - INTERVAL '1d', 3, NOW() - INTERVAL '1d'),
+    (4, null, '\[mpeg\] Second log', null, 3, NOW(), 3, NOW());
 ALTER SEQUENCE public.journal_notes_id_seq RESTART WITH 5;
 
 -- App Settings
