@@ -43,7 +43,7 @@ const MobileLayout = () => {
           <Route exact path="/" render={() => <Redirect to="/daily" />} />
           <Route path="" component={PageNotFoundView} />
         </IonRouterOutlet>
-        <IonTabBar slot="bottom">
+        <IonTabBar slot="bottom" style={{ marginBottom: 30 }}>
           {useMenu()
             .filter(($) => $.isTab)
             .map(($) => (

@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import { IonApp } from "@ionic/react";
-import { IonReactRouter } from "@ionic/react-router";
+import { IonReactHashRouter } from "@ionic/react-router";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -28,7 +28,7 @@ import { ApolloProvider } from "./hooks/use-apollo";
 const rootElement = document.getElementById("root");
 ReactDOM.render(
   <IonApp>
-    <IonReactRouter>
+    <IonReactHashRouter>
       <I18NProvider>
         <AuthProvider
           domain={process.env.REACT_APP_AUTH0_DOMAIN}
@@ -41,7 +41,7 @@ ReactDOM.render(
           </ApolloProvider>
         </AuthProvider>
       </I18NProvider>
-    </IonReactRouter>
+    </IonReactHashRouter>
   </IonApp>,
   rootElement
 );
