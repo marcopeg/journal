@@ -135,6 +135,7 @@
       columns:
       - data
       - order
+      - show_in_form
       - show_in_journal
       - text
       - type
@@ -147,6 +148,7 @@
       - data
       - id
       - order
+      - show_in_form
       - show_in_journal
       - text
       - type
@@ -161,6 +163,7 @@
       columns:
       - data
       - order
+      - show_in_form
       - show_in_journal
       - text
       - type
