@@ -40,14 +40,15 @@ export const REMOVE_JOURNAL_NOTES = gql`
 `;
 
 export const INSERT_JOURNAL_NOTE = gql`
-  mutation insertJournalNote($text: String!) {
+  mutation insertJournalNote($text: String!, $tags: _text!) {
     insert_journal_notes(objects: { text: $text }) {
       returning {
         id
+        text
         data
+        tags
         created_at
         created_by
-        text
         updated_at
         updated_by
       }
@@ -56,15 +57,16 @@ export const INSERT_JOURNAL_NOTE = gql`
 `;
 
 export const UPDATE_JOURNAL_NOTE = gql`
-  mutation updateJournalNote($noteId: Int!, $text: String!) {
+  mutation updateJournalNote($noteId: Int!, $text: String!, $tags: _text!) {
     update_journal_notes(
       where: { id: { _eq: $noteId } }
-      _set: { text: $text }
+      _set: { text: $text, tags: $tags }
     ) {
       returning {
         id
         text
         data
+        tags
         created_at
         created_by
         updated_at

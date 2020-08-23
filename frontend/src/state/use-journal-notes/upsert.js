@@ -48,13 +48,13 @@ const useJournalNotesUpsert = (noteId, options = DEFAULT_OPTIONS) => {
           // console.log("Empty text on a new note, skipping...");
           return;
         }
-        const variables = { text };
+        const variables = { text, tags: "{'free-text'}" };
         // console.log("@create", variables);
         const res = await createNote({ variables });
         setInitialValues(res.data.insert_journal_notes.returning[0]);
       } else {
         const { text } = values;
-        const variables = { noteId: id, text };
+        const variables = { noteId: id, text, tags: "{'free-text'}" };
         // console.log("@update", variables);
         const res = await updateNote({ variables });
         setInitialValues(res.data.update_journal_notes.returning[0]);

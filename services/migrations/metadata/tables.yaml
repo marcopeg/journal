@@ -76,18 +76,20 @@
         updated_by: x-hasura-user-id
       columns:
       - data
+      - tags
       - text
   select_permissions:
   - role: user
     permission:
       columns:
-      - created_by
-      - id
-      - updated_by
-      - data
-      - text
       - created_at
+      - created_by
+      - data
+      - id
+      - tags
+      - text
       - updated_at
+      - updated_by
       filter:
         created_by:
           _eq: X-Hasura-User-Id
@@ -96,6 +98,7 @@
     permission:
       columns:
       - data
+      - tags
       - text
       filter:
         created_by:
