@@ -5,7 +5,10 @@ import { useJournalChanges } from "./use-journal-changes";
 
 const LOAD_DAILY_ENTRIES = gql`
   query loadDailyEntries($logDate: date!) {
-    journal_questions(order_by: { order: asc }) {
+    journal_questions(
+      where: { show_in_form: { _eq: true } }
+      order_by: { order: asc }
+    ) {
       id
       type
       text
