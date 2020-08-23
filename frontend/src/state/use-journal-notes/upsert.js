@@ -20,11 +20,13 @@ const useJournalNotesUpsert = (noteId, options = DEFAULT_OPTIONS) => {
   const [values, setValues] = useState(INITIAL_VALUES);
   const [initialValues, setInitialValues] = useState(INITIAL_VALUES);
 
-  const {
-    loading: noteIsLoading,
-    data: noteData,
-    error: noteError
-  } = useQuery(LOAD_JOURNAL_NOTE, { variables: { noteId } });
+  const { loading: noteIsLoading, data: noteData, error: noteError } = useQuery(
+    LOAD_JOURNAL_NOTE,
+    {
+      variables: { noteId },
+      fetchPolicy: "network-only"
+    }
+  );
 
   const [updateNote] = useMutation(UPDATE_JOURNAL_NOTE);
 
