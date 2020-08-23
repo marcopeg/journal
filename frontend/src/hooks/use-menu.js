@@ -1,6 +1,8 @@
 import {
+  appsOutline,
   homeOutline,
   bookOutline,
+  createOutline,
   fileTrayFullOutline,
   personCircleOutline,
   logInOutline,
@@ -39,15 +41,6 @@ const useMenu = () => [
 
   // Private Items
   {
-    label: "Dashboard",
-    path: "/dashboard",
-    icon: homeOutline,
-    isPublic: false,
-    isTab: true,
-    isSidebar: true,
-    isDashboard: false
-  },
-  {
     label: "Daily",
     path: "/daily",
     icon: fileTrayFullOutline,
@@ -64,6 +57,24 @@ const useMenu = () => [
     isTab: true,
     isSidebar: true,
     isDashboard: true
+  },
+  {
+    label: "Write",
+    path: "/journal/$new/edit",
+    icon: createOutline,
+    isPublic: false,
+    isTab: true,
+    isSidebar: false,
+    isDashboard: true
+  },
+  {
+    label: "Dashboard",
+    path: "/dashboard",
+    icon: appsOutline,
+    isPublic: false,
+    isTab: true,
+    isSidebar: true,
+    isDashboard: false
   },
   {
     label: "Profile",

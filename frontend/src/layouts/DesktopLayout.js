@@ -87,7 +87,7 @@ const DesktopLayout = () => {
           />
           <Route exact path="/journal" component={JournalView} />
           <Route exact path="/me" component={ProfileView} />
-          <Route exact path="/" render={() => <Redirect to="/dashboard" />} />
+          <Route exact path="/" render={() => <Redirect to="/daily" />} />
           <Route path="" component={PageNotFoundView} />
         </IonRouterOutlet>
       </IonSplitPane>
