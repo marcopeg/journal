@@ -57,12 +57,26 @@ export AWS_DEFAULT_REGION=$S3_REGION
 export PGPASSWORD=$POSTGRES_PASSWORD
 POSTGRES_HOST_OPTS="-h $POSTGRES_HOST -p $POSTGRES_PORT -U $POSTGRES_USER $POSTGRES_EXTRA_OPTS"
 
+# Backup name
+FILE_NAME="${POSTGRES_DATABASE}_$(date +"%Y-%m-%dT%H-%M-%SZ")"
+
 echo "Creating dump of ${POSTGRES_DATABASE} database from ${POSTGRES_HOST}..."
+pg_dump $POSTGRES_HOST_OPTS $POSTGRES_DATABASE > ${FILE_NAME}.sql
 
-pg_dump $POSTGRES_HOST_OPTS $POSTGRES_DATABASE | gzip > dump.sql.gz
+# Compression with optional password
+if [ "${S3_PASSWORD}" = "**None**" ]; then
+  echo "Compressing archive..."
+  zip -q /${FILE_NAME}.sql.zip /${FILE_NAME}.sql
+else
+  echo "Compressing archive with password..."
+  zip -q -P ${S3_PASSWORD} /${FILE_NAME}.sql.zip /${FILE_NAME}.sql
+fi
 
-echo "Uploading dump to $S3_BUCKET"
+echo "Uploading dump to $S3_BUCKET..."
+cat ${FILE_NAME}.sql.zip | aws $AWS_ARGS s3 cp - s3://$S3_BUCKET/$S3_PREFIX/${POSTGRES_DATABASE}_$(date +"%Y-%m-%dT%H-%M-%SZ").sql.zip || exit 2
 
-cat dump.sql.gz | aws $AWS_ARGS s3 cp - s3://$S3_BUCKET/$S3_PREFIX/${POSTGRES_DATABASE}_$(date +"%Y-%m-%dT%H:%M:%SZ").sql.gz || exit 2
+echo "Cleaning up..."
+rm -f ${FILE_NAME}.sql
+rm -f ${FILE_NAME}.zip.sql
 
-echo "SQL backup uploaded successfully"
+echo "SQL backup uploaded successfully :-)"

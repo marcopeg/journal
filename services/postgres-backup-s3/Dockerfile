@@ -3,7 +3,7 @@ LABEL maintainer="Johannes Schickling <schickling.j@gmail.com>"
 
 # Install dependencies
 RUN apk update
-RUN apk add postgresql=12.3-r2 python3 py3-pip curl
+RUN apk add postgresql=12.3-r2 python3 py3-pip curl zip
 RUN pip install awscli
 RUN curl -L --insecure https://github.com/odise/go-cron/releases/download/v0.0.6/go-cron-linux.gz | zcat > /usr/local/bin/go-cron
 RUN chmod u+x /usr/local/bin/go-cron
@@ -25,6 +25,7 @@ ENV S3_BUCKET **None**
 ENV S3_REGION us-west-1
 ENV S3_PATH 'backup'
 ENV S3_ENDPOINT **None**
+ENV S3_PASSWORD **None**
 ENV S3_S3V4 no
 ENV SCHEDULE **None**
 
