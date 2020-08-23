@@ -1,0 +1,1 @@
+UPDATE "public"."journal_notes" SET tags = '{free-text}' WHERE tags = '{''free-text''}';

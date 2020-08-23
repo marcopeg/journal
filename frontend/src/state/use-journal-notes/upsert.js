@@ -12,7 +12,8 @@ import { updateCacheAfterCreate } from "./lib/cache";
 import { DEFAULT_OPTIONS } from "./entries";
 
 export const NEW_ITEM_ID = "$new";
-const INITIAL_VALUES = { id: NEW_ITEM_ID, text: "" };
+
+const INITIAL_VALUES = { id: NEW_ITEM_ID, text: "", tags: ["free-text"] };
 const noop = () => {};
 
 const useJournalNotesUpsert = (noteId, options = DEFAULT_OPTIONS) => {
@@ -42,19 +43,20 @@ const useJournalNotesUpsert = (noteId, options = DEFAULT_OPTIONS) => {
       // console.log("@submit", initialValues.id);
       const { id } = initialValues;
       if (id === NEW_ITEM_ID) {
-        const { text } = values;
+        const { text, tags } = values;
+
         // skip an empty value
         if (!text.length) {
           // console.log("Empty text on a new note, skipping...");
           return;
         }
-        const variables = { text, tags: "{'free-text'}" };
+        const variables = { text, tags: `{${tags.join(",")}}` };
         // console.log("@create", variables);
         const res = await createNote({ variables });
         setInitialValues(res.data.insert_journal_notes.returning[0]);
       } else {
-        const { text } = values;
-        const variables = { noteId: id, text, tags: "{'free-text'}" };
+        const { text, tags } = values;
+        const variables = { noteId: id, text, tags: `{${tags.join(",")}}` };
         // console.log("@update", variables);
         const res = await updateNote({ variables });
         setInitialValues(res.data.update_journal_notes.returning[0]);

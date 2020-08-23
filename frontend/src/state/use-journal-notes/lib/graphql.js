@@ -21,10 +21,11 @@ export const LOAD_JOURNAL_NOTE = gql`
       updated_by
       updated_at
       text
+      data
+      tags
       id
       created_at
       created_by
-      data
     }
   }
 `;
