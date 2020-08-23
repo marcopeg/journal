@@ -108,7 +108,9 @@ const useJournalEntry = (
   const [
     fetchEntries,
     { loading: isFetching, error: fetchError, data: fetchData }
-  ] = useLazyQuery(LOAD_DAILY_ENTRIES);
+  ] = useLazyQuery(LOAD_DAILY_ENTRIES, {
+    fetchPolicy: "network-only"
+  });
 
   const [
     updateEntries,
@@ -170,6 +172,7 @@ const useJournalEntry = (
 
   // re-fetch on logDate change
   useEffect(() => {
+    console.log("@load", logDate);
     setAnswers({});
     fetchEntries({ variables: { logDate } });
   }, [logDate, setAnswers, fetchEntries]);
