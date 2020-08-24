@@ -203,6 +203,18 @@
           _eq: X-Hasura-User-Id
 - table:
     schema: public
+    name: users_delete_requests
+  insert_permissions:
+  - role: user
+    permission:
+      check: {}
+      set:
+        user_id: x-hasura-user-id
+      columns:
+      - message
+      backend_only: false
+- table:
+    schema: public
     name: users_settings
   select_permissions:
   - role: user
