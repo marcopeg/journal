@@ -12,10 +12,13 @@ import {
   IonButtons,
   IonMenuButton,
   IonButton,
-  IonIcon
+  IonIcon,
+  IonItem,
+  IonLabel,
+  IonList
 } from "@ionic/react";
 
-import { logOutOutline } from "ionicons/icons";
+import { logOutOutline, trashOutline } from "ionicons/icons";
 import useAuth from "../hooks/use-auth";
 
 const ProfileView = () => {
@@ -46,6 +49,13 @@ const ProfileView = () => {
             Just text, and maybe some media in the future.
           </IonCardContent>
         </IonCard>
+
+        <IonList>
+          <IonItem routerLink="/me/delete" lines="none">
+            <IonIcon slot="start" icon={trashOutline} />
+            <IonLabel>Delete my profile permanently</IonLabel>
+          </IonItem>
+        </IonList>
       </IonContent>
     </IonPage>
   );

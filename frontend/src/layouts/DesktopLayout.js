@@ -28,6 +28,7 @@ import JournalView from "../views/JournalView";
 import JournalEditView from "../views/JournalEditView";
 import DashboardView from "../views/DashboardView";
 import ProfileView from "../views/ProfileView";
+import ProfileDeleteView from "../views/ProfileDeleteView";
 import PageNotFoundView from "../views/PageNotFoundView";
 
 // Modals
@@ -86,6 +87,7 @@ const DesktopLayout = () => {
             component={JournalEditView}
           />
           <Route exact path="/journal" component={JournalView} />
+          <Route exact path="/me/delete" component={ProfileDeleteView} />
           <Route exact path="/me" component={ProfileView} />
           <Route exact path="/" render={() => <Redirect to="/daily" />} />
           <Route path="" component={PageNotFoundView} />

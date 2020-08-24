@@ -18,6 +18,7 @@ import JournalView from "../views/JournalView";
 import JournalEditView from "../views/JournalEditView";
 import DashboardView from "../views/DashboardView";
 import ProfileView from "../views/ProfileView";
+import ProfileDeleteView from "../views/ProfileDeleteView";
 import PageNotFoundView from "../views/PageNotFoundView";
 
 import CreateDailyModal from "../modals/CreateDailyModal";
@@ -39,6 +40,7 @@ const MobileLayout = () => {
             component={JournalEditView}
           />
           <Route exact path="/journal" component={JournalView} />
+          <Route exact path="/me/delete" component={ProfileDeleteView} />
           <Route exact path="/me" component={ProfileView} />
           <Route exact path="/" render={() => <Redirect to="/daily" />} />
           <Route path="" component={PageNotFoundView} />
