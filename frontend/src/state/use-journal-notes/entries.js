@@ -50,6 +50,7 @@ const useJournalNotesEntries = (options = DEFAULT_OPTIONS) => {
   };
 
   return {
+    loading: notesQuery.loading,
     entries,
     reload,
     loadMore,
