@@ -72,8 +72,12 @@ function hasuraSyncUserV3(user, context, callback) {
             return callback(error, user, context);
           }
 
-          throw new Error(
-            `It was not possible to create the user: ${user.user_id} / ${user.email}`
+          callback(
+            new Error(
+              `It was not possible to create the user: ${user.user_id} / ${user.email}`
+            ),
+            user,
+            context
           );
         }
       );
