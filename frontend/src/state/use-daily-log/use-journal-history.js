@@ -95,7 +95,7 @@ const useJournalHistory = (
   const showRecordsRef = useRef(0);
   const [{ changes }, { resetJournalChanges }] = useJournalChanges();
 
-  const [fetchEntries, { loading, error }] = useLazyQuery(
+  const [fetchEntries, { loading, error, data: rawEntries }] = useLazyQuery(
     FETCH_JOURNAL_ENTRIES
   );
 
@@ -119,6 +119,13 @@ const useJournalHistory = (
       };
     });
   }, [initialDate, logs, changes]);
+
+  const showHints = useMemo(() => {
+    if (loading) return false;
+    if (!rawEntries) return false;
+    if (rawEntries.journal_logs.length) return false;
+    return true;
+  }, [loading, rawEntries]);
 
   const loadMore = () => {
     const lastDate = logs.length
@@ -157,6 +164,7 @@ const useJournalHistory = (
   }, []); // eslint-disable-line
 
   return {
+    showHints,
     today: formatDate(initialDate),
     entries,
     changes,

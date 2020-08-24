@@ -24,7 +24,7 @@ import {
   IonCard,
   IonCardHeader,
   IonCardContent,
-  IonCardTitle,
+  IonCardSubtitle,
   IonRouterLink
 } from "@ionic/react";
 
@@ -87,7 +87,7 @@ const JournalView = () => {
     loading || entries.length ? null : (
       <IonCard>
         <IonCardHeader>
-          <IonCardTitle>Welcome to your Journal!</IonCardTitle>
+          <IonCardSubtitle>Welcome to your Journal!</IonCardSubtitle>
         </IonCardHeader>
         <IonCardContent>
           <p>
