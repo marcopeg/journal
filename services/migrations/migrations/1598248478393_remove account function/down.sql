@@ -1,3 +1,4 @@
-DROP FUNCTION "public"."users_drop_by_id"("pg_catalog"."json", "pg_catalog"."text");
-DROP TABLE "public"."users_deleted";
+DROP TRIGGER users_drop_by_id ON public.users_delete_requests;
+DROP FUNCTION "public"."users_drop_by_id"();
+DROP TABLE "public"."users_delete_requests";
 DROP EXTENSION IF EXISTS "uuid-ossp" CASCADE;
