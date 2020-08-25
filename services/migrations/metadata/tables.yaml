@@ -189,6 +189,22 @@
           _eq: X-Hasura-User-Id
 - table:
     schema: public
+    name: mindful_questions
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - id
+      - bucket
+      - lang
+      - type
+      - text
+      - data
+      - created_at
+      - updated_at
+      filter: {}
+- table:
+    schema: public
     name: users
   select_permissions:
   - role: user
