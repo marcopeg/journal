@@ -16,6 +16,7 @@ import DailyView from "../views/DailyView";
 import DailyEditView from "../views/DailyEditView";
 import JournalView from "../views/JournalView";
 import JournalEditView from "../views/JournalEditView";
+import JournalMindfulQuestionView from "../views/JournalMindfulQuestionView";
 import DashboardView from "../views/DashboardView";
 import ProfileView from "../views/ProfileView";
 import ProfileDeleteView from "../views/ProfileDeleteView";
@@ -34,6 +35,11 @@ const MobileLayout = () => {
           <Route exact path="/dashboard" component={DashboardView} />
           <Route exact path="/daily/:logDate" component={DailyEditView} />
           <Route exact path="/daily" component={DailyView} />
+          <Route
+            exact
+            path="/journal/mindful"
+            component={JournalMindfulQuestionView}
+          />
           <Route
             exact
             path="/journal/:noteId/edit"

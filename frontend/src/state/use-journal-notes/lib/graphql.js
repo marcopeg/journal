@@ -41,8 +41,8 @@ export const REMOVE_JOURNAL_NOTES = gql`
 `;
 
 export const INSERT_JOURNAL_NOTE = gql`
-  mutation insertJournalNote($text: String!, $tags: _text!) {
-    insert_journal_notes(objects: { text: $text }) {
+  mutation insertJournalNote($text: String!, $tags: _text!, $data: jsonb) {
+    insert_journal_notes(objects: { text: $text, tags: $tags, data: $data }) {
       returning {
         id
         text

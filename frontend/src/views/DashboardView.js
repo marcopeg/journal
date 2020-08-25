@@ -42,7 +42,7 @@ const DashboardView = () => {
               <IonItem
                 button
                 routerLink={$.path}
-                routerDirection="root"
+                routerDirection={"forward"}
                 lines="none"
                 key={$.path}
               >

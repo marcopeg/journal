@@ -59,12 +59,21 @@ const useMenu = () => [
     isDashboard: true
   },
   {
-    label: "Write",
+    label: "Write in your Journal",
     path: "/journal/$new/edit",
     icon: createOutline,
     isPublic: false,
     isTab: true,
-    isSidebar: false,
+    isSidebar: true,
+    isDashboard: true
+  },
+  {
+    label: "Answer to a Mindful Question",
+    path: "/journal/mindful",
+    icon: createOutline,
+    isPublic: false,
+    isTab: false,
+    isSidebar: true,
     isDashboard: true
   },
   {

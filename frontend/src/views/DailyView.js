@@ -86,7 +86,7 @@ const DailyView = () => {
           <IonButtons slot="start">
             <IonMenuButton />
           </IonButtons>
-          <IonTitle>{"Daily Journal"}</IonTitle>
+          <IonTitle>{"Daily"}</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent>
