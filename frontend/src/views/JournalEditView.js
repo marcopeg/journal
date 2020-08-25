@@ -8,7 +8,6 @@ import {
   IonButtons,
   IonMenuButton,
   IonButton,
-  IonItem,
   IonLabel,
   IonTextarea,
   IonGrid,
@@ -41,15 +40,21 @@ const JournalEditView = ({ match }) => {
           <IonGrid>
             <IonRow>
               <IonCol sizeLg={8}>
-                <IonItem lines="none">
-                  <IonLabel position="floating">What's up?</IonLabel>
-                  <IonTextarea
-                    {...(values.text.options || {})}
-                    rows={25}
-                    value={values.text.value}
-                    onIonChange={(e) => values.text.update(e.target.value)}
-                  />
-                </IonItem>
+                <IonLabel position="floating">What's up?</IonLabel>
+                <IonTextarea
+                  {...(values.text.options || {})}
+                  // autoGrow
+                  rows={12}
+                  value={values.text.value}
+                  onIonChange={(e) => {
+                    values.text.update(e.target.value);
+                    // contentRef.current.scrollToBottom();
+                  }}
+                  // onIonFocus={() => {
+                  //   setTimeout(() => contentRef.current.scrollToBottom(), 250);
+                  // }}
+                  style={{ border: "1px solid #ddd", borderRadius: 4 }}
+                />
               </IonCol>
             </IonRow>
           </IonGrid>

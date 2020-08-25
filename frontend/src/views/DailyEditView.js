@@ -7,7 +7,8 @@ import {
   IonContent,
   IonButtons,
   IonMenuButton,
-  IonButton
+  IonButton,
+  IonList
 } from "@ionic/react";
 
 import useJournalEntry from "../state/use-daily-log/use-journal-entry";
@@ -32,9 +33,11 @@ const DailyView = ({ match }) => {
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        {questions.map((question) => (
-          <JournalQuestion {...question} key={question.id} />
-        ))}
+        <IonList lines={"full"} style={{ marginLeft: -10 }}>
+          {questions.map((question) => (
+            <JournalQuestion {...question} key={question.id} />
+          ))}
+        </IonList>
       </IonContent>
     </IonPage>
   );

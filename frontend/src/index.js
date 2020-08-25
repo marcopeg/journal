@@ -26,22 +26,42 @@ import { I18NProvider } from "./hooks/use-i18n";
 import { ApolloProvider } from "./hooks/use-apollo";
 
 const rootElement = document.getElementById("root");
-ReactDOM.render(
-  <IonApp>
-    <IonReactHashRouter>
-      <I18NProvider>
-        <AuthProvider
-          domain={process.env.REACT_APP_AUTH0_DOMAIN}
-          client_id={process.env.REACT_APP_AUTH0_CLIENT_ID}
-          audience={process.env.REACT_APP_AUTH0_AUDIENCE}
-          redirect_uri={window.location.origin}
-        >
-          <ApolloProvider>
-            <App />
-          </ApolloProvider>
-        </AuthProvider>
-      </I18NProvider>
-    </IonReactHashRouter>
-  </IonApp>,
-  rootElement
-);
+
+const start = () =>
+  ReactDOM.render(
+    <IonApp>
+      <IonReactHashRouter>
+        <I18NProvider>
+          <AuthProvider
+            domain={process.env.REACT_APP_AUTH0_DOMAIN}
+            client_id={process.env.REACT_APP_AUTH0_CLIENT_ID}
+            audience={process.env.REACT_APP_AUTH0_AUDIENCE}
+            redirect_uri={window.location.origin}
+          >
+            <ApolloProvider>
+              <App />
+            </ApolloProvider>
+          </AuthProvider>
+        </I18NProvider>
+      </IonReactHashRouter>
+    </IonApp>,
+    rootElement
+  );
+
+function docReady(fn) {
+  // see if DOM is already available
+  if (
+    document.readyState === "complete" ||
+    document.readyState === "interactive"
+  ) {
+    // call on next available tick
+    setTimeout(fn, 1);
+  } else {
+    document.addEventListener("DOMContentLoaded", fn);
+  }
+}
+
+docReady(start);
+// setTimeout(start, 250);
+
+// window.onload = start;
