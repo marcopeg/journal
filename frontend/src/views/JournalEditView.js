@@ -40,11 +40,11 @@ const JournalEditView = ({ match }) => {
           <IonGrid>
             <IonRow>
               <IonCol sizeLg={8}>
-                <IonLabel position="floating">What's up?</IonLabel>
+                <IonLabel position="stacked">What's up?</IonLabel>
                 <IonTextarea
                   {...(values.text.options || {})}
-                  // autoGrow
-                  rows={12}
+                  autoGrow
+                  // rows={12}
                   value={values.text.value}
                   onIonChange={(e) => {
                     values.text.update(e.target.value);
@@ -53,7 +53,11 @@ const JournalEditView = ({ match }) => {
                   // onIonFocus={() => {
                   //   setTimeout(() => contentRef.current.scrollToBottom(), 250);
                   // }}
-                  style={{ border: "1px solid #ddd", borderRadius: 4 }}
+                  style={{
+                    background: "#f6f6f6",
+                    borderRadius: 4,
+                    padding: "0 10px"
+                  }}
                 />
               </IonCol>
             </IonRow>
