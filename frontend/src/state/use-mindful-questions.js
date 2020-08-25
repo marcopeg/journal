@@ -50,7 +50,7 @@ const useMindfulQuestions = () => {
   };
 
   const create = async () => {
-    const text = `### ${question.text}\n\n`;
+    const text = `## ${question.text}\n\n`;
     const variables = {
       text,
       tags: `{mindful-question, ${question.bucket}-bucket}`,
