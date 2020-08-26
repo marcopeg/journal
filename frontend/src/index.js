@@ -61,7 +61,5 @@ function docReady(fn) {
   }
 }
 
-docReady(start);
-// setTimeout(start, 250);
-
-// window.onload = start;
+// Mostly due to the autoGrow in textareas
+docReady(() => setTimeout(start, 50));

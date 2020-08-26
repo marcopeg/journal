@@ -11,6 +11,7 @@ CREATE TABLE "public"."mindful_questions" (
 );
 
 -- https://bucketlistjourney.net/365-thought-provoking-questions-answered/
+-- How do you find the strength to do what you know in your heart is right?
 INSERT INTO "public"."mindful_questions" ("bucket", "lang", "type", "text") VALUES
 ('life', 'en', 'text', 'When was the last time you tried something new?'),
 ('life', 'en', 'text', 'Who do you sometimes compare yourself to?'),

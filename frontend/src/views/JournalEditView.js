@@ -15,10 +15,40 @@ import {
   IonCol
 } from "@ionic/react";
 
-import useJournalNotesUpsert from "../state/use-journal-notes/upsert";
+import useJournalNotesUpsert from "../state/use-journal-notes/upsert1";
 
 const JournalEditView = ({ match }) => {
-  const { values, hasChanges } = useJournalNotesUpsert(match.params.noteId);
+  const { isReady, values, hasChanges } = useJournalNotesUpsert(
+    match.params.noteId
+  );
+
+  const editForm = (
+    <IonGrid>
+      <IonRow>
+        <IonCol sizeLg={8}>
+          <IonLabel position="stacked">What's up?</IonLabel>
+          <IonTextarea
+            {...(values.text.options || {})}
+            autoGrow
+            // rows={12}
+            value={values.text.value}
+            onIonChange={(e) => {
+              values.text.update(e.target.value);
+              // contentRef.current.scrollToBottom();
+            }}
+            // onIonFocus={() => {
+            //   setTimeout(() => contentRef.current.scrollToBottom(), 250);
+            // }}
+            style={{
+              background: "#f6f6f6",
+              borderRadius: 4,
+              padding: "0 10px"
+            }}
+          />
+        </IonCol>
+      </IonRow>
+    </IonGrid>
+  );
 
   return (
     <>
@@ -36,33 +66,7 @@ const JournalEditView = ({ match }) => {
             </IonButtons>
           </IonToolbar>
         </IonHeader>
-        <IonContent>
-          <IonGrid>
-            <IonRow>
-              <IonCol sizeLg={8}>
-                <IonLabel position="stacked">What's up?</IonLabel>
-                <IonTextarea
-                  {...(values.text.options || {})}
-                  autoGrow
-                  // rows={12}
-                  value={values.text.value}
-                  onIonChange={(e) => {
-                    values.text.update(e.target.value);
-                    // contentRef.current.scrollToBottom();
-                  }}
-                  // onIonFocus={() => {
-                  //   setTimeout(() => contentRef.current.scrollToBottom(), 250);
-                  // }}
-                  style={{
-                    background: "#f6f6f6",
-                    borderRadius: 4,
-                    padding: "0 10px"
-                  }}
-                />
-              </IonCol>
-            </IonRow>
-          </IonGrid>
-        </IonContent>
+        <IonContent>{isReady ? editForm : "loading..."}</IonContent>
       </IonPage>
     </>
   );
