@@ -37,8 +37,10 @@ function hasuraSyncUserV3(user, context, callback) {
 
   const variables = {
     userId: user.user_id,
-    email: user.email
+    email: user.email || `@@`
   };
+
+  console.log(variables);
 
   const params = {
     url: `${configuration.BASE_URL}/v1/graphql`,
@@ -56,7 +58,13 @@ function hasuraSyncUserV3(user, context, callback) {
     },
     (error, response, body) => {
       if (error) return callback(error, null, null);
-      if (JSON.parse(body).data.update_users.affected_rows > 0) {
+
+      // Handle Hasura's error
+      const updateData = JSON.parse(body);
+      if (updateData.errors)
+        return callback(new Error(updateData.errors[0].message));
+
+      if (updateData.data.update_users.affected_rows > 0) {
         return callback(error, user, context);
       }
 
@@ -68,7 +76,13 @@ function hasuraSyncUserV3(user, context, callback) {
         },
         (error, response, body) => {
           if (error) return callback(error, null, null);
-          if (JSON.parse(body).data.insert_users.affected_rows > 0) {
+
+          // Handle Hasura's error
+          const insertData = JSON.parse(body);
+          if (insertData.errors)
+            return callback(new Error(insertData.errors[0].message));
+
+          if (insertData.data.insert_users.affected_rows > 0) {
             return callback(error, user, context);
           }
 

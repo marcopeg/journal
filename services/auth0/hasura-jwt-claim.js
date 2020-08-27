@@ -3,12 +3,12 @@
  * (copy this to Auth0 Rules)
  */
 
-function hasuraClaimsRule(user, context, callback) {
+function hasuraClaimsRuleV3(user, context, callback) {
   const query = `
-          query getUserId ($auth0Id:String!) {
-              users(where: { auth0_id: { _eq: $auth0Id }}) { id }
-      }
-    `;
+		query getUserId ($auth0Id:String!) {
+			users(where: { auth0_id: { _eq: $auth0Id }}) { id }
+    }
+  `;
 
   const variables = {
     auth0Id: user.user_id
@@ -30,6 +30,8 @@ function hasuraClaimsRule(user, context, callback) {
     }
 
     try {
+      const userData = JSON.parse(body);
+
       context.accessToken["https://hasura.io/jwt/claims"] = {
         "x-hasura-default-role": "user",
         "x-hasura-allowed-roles": ["user"],
@@ -84,4 +86,4 @@ const request = {
   }
 };
 
-hasuraClaimsRule(auth0.user, auth0.context, auth0.callback);
+hasuraClaimsRuleV3(auth0.user, auth0.context, auth0.callback);
