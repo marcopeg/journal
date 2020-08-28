@@ -18,7 +18,8 @@ const useMenu = () => [
     isPublic: true,
     isTab: false,
     isSidebar: false,
-    isDashboard: false
+    isDashboard: false,
+    isActive: (location) => location.pathname === "/"
   },
   {
     label: "Privacy Policy",
@@ -27,7 +28,8 @@ const useMenu = () => [
     isPublic: true,
     isTab: false,
     isSidebar: false,
-    isDashboard: false
+    isDashboard: false,
+    isActive: (location) => location.pathname === "/privacy"
   },
   {
     label: "Login",
@@ -36,7 +38,8 @@ const useMenu = () => [
     isPublic: true,
     isTab: false,
     isSidebar: false,
-    isDashboard: false
+    isDashboard: false,
+    isActive: (location) => location.pathname === "/login"
   },
 
   // Private Items
@@ -47,7 +50,8 @@ const useMenu = () => [
     isPublic: false,
     isTab: true,
     isSidebar: true,
-    isDashboard: true
+    isDashboard: true,
+    isActive: (location) => location.pathname.includes("/daily")
   },
   {
     label: "Journal",
@@ -56,7 +60,12 @@ const useMenu = () => [
     isPublic: false,
     isTab: true,
     isSidebar: true,
-    isDashboard: true
+    isDashboard: true,
+    isActive: (location) =>
+      location.pathname === "/journal" ||
+      (location.pathname.includes("/journal") &&
+        location.pathname.includes("/edit") &&
+        !location.pathname.includes("/$new"))
   },
   {
     label: "Write in your Journal",
@@ -65,7 +74,8 @@ const useMenu = () => [
     isPublic: false,
     isTab: true,
     isSidebar: true,
-    isDashboard: true
+    isDashboard: true,
+    isActive: (location) => location.pathname.includes("/journal/$new")
   },
   {
     label: "Answer to a Mindful Question",
@@ -74,7 +84,8 @@ const useMenu = () => [
     isPublic: false,
     isTab: false,
     isSidebar: true,
-    isDashboard: true
+    isDashboard: true,
+    isActive: (location) => location.pathname.includes("/journal/mindful")
   },
   {
     label: "Dashboard",
@@ -83,7 +94,8 @@ const useMenu = () => [
     isPublic: false,
     isTab: true,
     isSidebar: true,
-    isDashboard: false
+    isDashboard: false,
+    isActive: (location) => location.pathname.includes("/dashboard")
   },
   {
     label: "Profile",
@@ -92,7 +104,8 @@ const useMenu = () => [
     isPublic: false,
     isTab: true,
     isSidebar: true,
-    isDashboard: true
+    isDashboard: true,
+    isActive: (location) => location.pathname.includes("/me")
   }
 ];
 

@@ -60,7 +60,7 @@ const MobileLayout = () => {
                 tab={$.path}
                 href={$.path}
                 layout="label-hide"
-                selected={location.pathname.includes($.path)}
+                selected={$.isActive(location)}
               >
                 <IonIcon icon={$.icon} />
                 <IonLabel>{$.label}</IonLabel>

@@ -63,9 +63,7 @@ const DesktopLayout = () => {
                       routerDirection="none"
                       lines="none"
                       detail={false}
-                      color={
-                        location.pathname.includes($.path) ? "primary" : null
-                      }
+                      color={$.isActive(location) ? "primary" : null}
                     >
                       <IonIcon slot="start" ios={$.icon} md={$.icon} />
                       <IonLabel>{$.label}</IonLabel>
