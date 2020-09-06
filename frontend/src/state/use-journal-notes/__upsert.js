@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-import { useState, useEffect, useRef, useCallback, useMemo } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import {
   LOAD_JOURNAL_NOTE,
@@ -17,25 +17,9 @@ const INITIAL_VALUES = { id: NEW_ITEM_ID, text: "", tags: ["free-text"] };
 const noop = () => {};
 
 const useJournalNotesUpsert = (noteId, options = DEFAULT_OPTIONS) => {
-  const timerRef = useRef(null);
-
-  // const [hasChanges, setHasChanges] = useState(false);
-
-  const [isReady, setIsReady] = useState(noteId === NEW_ITEM_ID);
-
-  const [initialValues, setInitialValues] = useState({
-    id: noteId,
-    text: "",
-    tags: [],
-    data: null
-  });
-
-  const [values, setValues] = useState({
-    id: noteId,
-    text: "",
-    tags: [],
-    data: null
-  });
+  const submitTimer = useRef(null);
+  const [values, setValues] = useState(INITIAL_VALUES);
+  const [initialValues, setInitialValues] = useState(INITIAL_VALUES);
 
   const { loading: noteIsLoading, data: noteData, error: noteError } = useQuery(
     LOAD_JOURNAL_NOTE,
@@ -54,12 +38,7 @@ const useJournalNotesUpsert = (noteId, options = DEFAULT_OPTIONS) => {
     })
   });
 
-  const hasChanges = useMemo(() => {
-    console.log("@@hasChanges", values.text !== initialValues.text);
-    return values.text !== initialValues.text;
-  }, [values, initialValues]);
-
-  const submit = async () => {
+  const submit = useCallback(async () => {
     try {
       // console.log("@submit", initialValues.id);
       const { id } = initialValues;
@@ -74,7 +53,6 @@ const useJournalNotesUpsert = (noteId, options = DEFAULT_OPTIONS) => {
         const variables = { text, tags: `{${tags.join(",")}}` };
         // console.log("@create", variables);
         const res = await createNote({ variables });
-        console.log(res);
         setInitialValues(res.data.insert_journal_notes.returning[0]);
       } else {
         const { text, tags } = values;
@@ -86,31 +64,34 @@ const useJournalNotesUpsert = (noteId, options = DEFAULT_OPTIONS) => {
     } catch (err) {
       console.error("@@submit", err.message);
     }
-  };
+  }, [initialValues, values, createNote, updateNote]);
 
-  // First data load
+  // Populate the initial values for the edit form
   useEffect(() => {
-    if (!noteData) return;
-    if (isReady) return;
-    console.log("@@firstDataLoad", noteData.journal_notes);
-    setIsReady(true);
-    setInitialValues(noteData.journal_notes[0]);
-    setValues(noteData.journal_notes[0]);
-  }, [isReady, noteData]);
+    if (noteIsLoading || noteError) return noop;
 
-  // Trigger a debounced submit
+    const initialValues =
+      noteData && noteData.journal_notes
+        ? { ...noteData.journal_notes[0] }
+        : { ...INITIAL_VALUES };
+
+    // console.log("@initialValues", initialValues);
+    setValues(initialValues);
+    setInitialValues(initialValues);
+  }, [noteId, noteIsLoading, noteError, noteData]);
+
+  // Auto save
+  // @TODO: skip first load
   useEffect(() => {
-    clearTimeout(timerRef.current);
-    if (values.text !== initialValues.text) {
-      timerRef.current = setTimeout(submit, 500);
-    }
-  }, [values, initialValues]);
+    clearTimeout(submitTimer.current);
+    submitTimer.current = setTimeout(submit, 500);
+    return () => clearTimeout(submitTimer.current);
+  }, [values, initialValues, submit]);
 
   return {
     submit,
-    isReady,
     title: values.text.length ? values.text.substring(0, 20) : "New Note",
-    hasChanges,
+    hasChanges: values.text !== initialValues.text,
     values: {
       text: {
         options: {

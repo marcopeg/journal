@@ -60,7 +60,7 @@ const DesktopLayout = () => {
                   <IonMenuToggle key={$.path} autoHide={false}>
                     <IonItem
                       routerLink={$.path}
-                      routerDirection="none"
+                      routerDirection="root"
                       lines="none"
                       detail={false}
                       color={$.isActive(location) ? "primary" : null}

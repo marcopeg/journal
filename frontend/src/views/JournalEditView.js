@@ -15,7 +15,7 @@ import {
   IonCol
 } from "@ionic/react";
 
-import useJournalNotesUpsert from "../state/use-journal-notes/upsert1";
+import useJournalNotesUpsert from "../state/use-journal-notes/upsert";
 
 const JournalEditView = ({ match }) => {
   const { isReady, values, hasChanges } = useJournalNotesUpsert(

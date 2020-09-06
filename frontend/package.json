@@ -30,7 +30,8 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "start:compose": "npm i && react-scripts start",
-    "start:node": "REACT_APP_HASURA_URL=http://localhost:8080/v1/graphql react-scripts start"
+    "start:node": "REACT_APP_HASURA_URL=http://localhost:8080/v1/graphql react-scripts start",
+    "ngrok": "ngrok http 3000 -host-header=\"localhost:3000\""
   },
   "browserslist": [
     ">0.2%",
