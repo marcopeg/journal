@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useMemo } from "react";
 import { useQuery, useMutation } from "@apollo/client";
-import { useIonViewDidLeave } from "@ionic/react";
+import { useHistory } from "react-router-dom";
+import useAuth from "../../hooks/use-auth";
 import {
   LOAD_JOURNAL_NOTE,
   UPDATE_JOURNAL_NOTE,
@@ -16,6 +17,9 @@ export const NEW_ITEM_ID = "$new";
 // const noop = () => {};
 
 const useJournalNotesUpsert = (noteId, options = DEFAULT_OPTIONS) => {
+  const auth = useAuth();
+  const history = useHistory();
+
   const timerRef = useRef(null);
 
   const [isReady, setIsReady] = useState(noteId === NEW_ITEM_ID);
@@ -36,8 +40,8 @@ const useJournalNotesUpsert = (noteId, options = DEFAULT_OPTIONS) => {
 
   const {
     // loading: noteIsLoading,
-    data: noteData
-    // error: noteError
+    data: noteData,
+    error: noteError
   } = useQuery(LOAD_JOURNAL_NOTE, {
     variables: { noteId }
     // fetchPolicy: "network-only"
@@ -104,9 +108,16 @@ const useJournalNotesUpsert = (noteId, options = DEFAULT_OPTIONS) => {
     }
   }, [values, initialValues]); // eslint-disable-line
 
-  useIonViewDidLeave(() => {
-    console.log("reset initial values");
-  });
+  // Forces logout in case of missing token
+  useEffect(() => {
+    if (
+      noteError &&
+      noteError.message.includes('field "journal_notes" not found')
+    ) {
+      auth.logout();
+      history.push("/login");
+    }
+  }, [noteError]);
 
   return {
     submit,

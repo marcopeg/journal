@@ -26,6 +26,9 @@ const AuthProviderDev = ({ children }) => {
     try {
       const data = JSON.parse(localStorage.getItem(`dev.${LOCAL_STORAGE_KEY}`));
       setData(data);
+
+      // Simulates a lost token, used while working on #47
+      // setData({ user: {}, token: "" });
     } catch (err) {
       setData(null);
     } finally {

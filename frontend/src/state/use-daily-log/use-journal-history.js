@@ -2,6 +2,8 @@
 
 import { useState, useRef, useMemo, useEffect } from "react";
 import { gql } from "@apollo/client";
+import { useHistory } from "react-router-dom";
+import useAuth from "../../hooks/use-auth";
 import { useLazyQuery } from "../../hooks/use-lazy-query";
 import { useJournalChanges } from "./use-journal-changes";
 
@@ -90,6 +92,8 @@ const useJournalHistory = (
     pageSize: 7
   }
 ) => {
+  const auth = useAuth();
+  const history = useHistory();
   const initialDate = useMemo(() => new Date(), []);
   const [logs, setLogs] = useState([]);
   const showRecordsRef = useRef(0);
@@ -127,6 +131,14 @@ const useJournalHistory = (
     return true;
   }, [loading, rawEntries]);
 
+  // Handles missing token and forces redirect to /login
+  const handleError = (error) => {
+    if (error && error.message.includes("no such type exists in the schema")) {
+      auth.logout();
+      history.push("/login");
+    }
+  };
+
   const loadMore = () => {
     const lastDate = logs.length
       ? decreaseDate(logs[logs.length - 1].created_at_day, 1)
@@ -138,10 +150,12 @@ const useJournalHistory = (
     );
 
     console.log("@loadMore", top, bottom, showRecordsRef.current);
-    return fetchEntries({ variables: { top, bottom } }).then((data) => {
-      showRecordsRef.current += options.pageSize;
-      setLogs([...logs, ...data.journal_logs]);
-    });
+    return fetchEntries({ variables: { top, bottom } })
+      .then((data) => {
+        showRecordsRef.current += options.pageSize;
+        setLogs([...logs, ...data.journal_logs]);
+      })
+      .catch(handleError);
   };
 
   const reload = () => {
@@ -151,11 +165,13 @@ const useJournalHistory = (
     );
 
     // console.log('@reload', top, bottom, showRecordsRef.current)
-    return fetchEntries({ variables: { top, bottom } }).then((data) => {
-      showRecordsRef.current = options.pageSize;
-      setLogs([...data.journal_logs]);
-      resetJournalChanges();
-    });
+    return fetchEntries({ variables: { top, bottom } })
+      .then((data) => {
+        showRecordsRef.current = options.pageSize;
+        setLogs([...data.journal_logs]);
+        resetJournalChanges();
+      })
+      .catch(handleError);
   };
 
   // first load
