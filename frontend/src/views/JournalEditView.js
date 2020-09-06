@@ -17,9 +17,12 @@ import {
 
 import useJournalNotesUpsert from "../state/use-journal-notes/upsert";
 
+const getViewTitle = (values) =>
+  values.text.value ? values.text.value.substr(0, 50) : "New Journal Note";
+
 const JournalEditView = ({ match }) => {
   const { isReady, values, hasChanges } = useJournalNotesUpsert(
-    match.params.noteId
+    match.params.noteId || "$new"
   );
 
   const editForm = (
@@ -58,7 +61,7 @@ const JournalEditView = ({ match }) => {
             <IonButtons slot="start">
               <IonMenuButton />
             </IonButtons>
-            <IonTitle>{"Journal"}</IonTitle>
+            <IonTitle>{getViewTitle(values)}</IonTitle>
             <IonButtons slot="primary">
               <IonButton routerLink="/journal" routerDirection="back">
                 {hasChanges ? <small>Saving...</small> : "Done"}

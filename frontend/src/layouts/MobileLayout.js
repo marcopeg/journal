@@ -40,6 +40,7 @@ const MobileLayout = () => {
             path="/journal/mindful"
             component={JournalMindfulQuestionView}
           />
+          <Route exact path="/create-in-journal" component={JournalEditView} />
           <Route
             exact
             path="/journal/:noteId/edit"

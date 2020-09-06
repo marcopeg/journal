@@ -69,13 +69,13 @@ const useMenu = () => [
   },
   {
     label: "Write in your Journal",
-    path: "/journal/$new/edit",
+    path: "/create-in-journal",
     icon: createOutline,
     isPublic: false,
     isTab: true,
     isSidebar: true,
     isDashboard: true,
-    isActive: (location) => location.pathname.includes("/journal/$new")
+    isActive: (location) => location.pathname.includes("/create-in-journal")
   },
   {
     label: "Answer to a Mindful Question",
