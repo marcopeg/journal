@@ -55,6 +55,10 @@ const useJournalNotesEntries = (options = DEFAULT_OPTIONS) => {
 
   // Forces logout in case of missing token
   useEffect(() => {
+    // @debug
+    if (notesQuery.error) {
+      alert(notesQuery.error.message);
+    }
     if (
       notesQuery.error &&
       notesQuery.error.message.includes('field "journal_notes" not found')
