@@ -89,7 +89,7 @@ const getUpdatedLogs = (logs, changes) => {
 
 const useJournalHistory = (
   options = {
-    pageSize: 7
+    pageSize: 30
   }
 ) => {
   const auth = useAuth();
