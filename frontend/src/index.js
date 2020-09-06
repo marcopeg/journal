@@ -24,6 +24,7 @@ import App from "./App";
 import { AuthProvider } from "./hooks/use-auth";
 import { I18NProvider } from "./hooks/use-i18n";
 import { ApolloProvider } from "./hooks/use-apollo";
+import * as serviceWorker from "./serviceWorker";
 
 const rootElement = document.getElementById("root");
 
@@ -63,3 +64,12 @@ function docReady(fn) {
 
 // Mostly due to the autoGrow in textareas
 docReady(() => setTimeout(start, 50));
+
+// If you want your app to work offline and load faster, you can change
+// unregister() to register() below. Note this comes with some pitfalls.
+// Learn more about service workers: https://bit.ly/CRA-PWA
+serviceWorker.register();
+
+// Let people play with it...
+window.serviceWorkerOn = () => serviceWorker.register();
+window.serviceWorkerOff = () => serviceWorker.unregister();
