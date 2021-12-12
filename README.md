@@ -106,3 +106,15 @@ SELECT setval('public.journal_notes_id_seq', COALESCE((SELECT MAX(id)+1 FROM pub
 SELECT setval('public.journal_questions_id_seq', COALESCE((SELECT MAX(id)+1 FROM public.journal_questions), 1), false);
 SELECT setval('public.users_id_seq', COALESCE((SELECT MAX(id)+1 FROM public.users), 1), false);
 COMMIT;
+
+## Troubleshooting
+
+### Invalid Host header
+
+Create `frontend/.env.local` and add the following variable:
+
+```bash
+DANGEROUSLY_DISABLE_HOST_CHECK=true
+```
+
+https://stackoverflow.com/a/60250859/1308023
